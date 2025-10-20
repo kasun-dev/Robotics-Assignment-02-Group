@@ -1,0 +1,208 @@
+<?xml version="1.0" ?>
+<sdf version="1.8">
+  <world name="maze_world">
+    <!-- basic lighting and ground -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <!-- sizes:
+         Corridor spacing uses 0.5 m between wall centers (wall thickness small).
+         Coordinate system: create a simple 6x6-ish maze with corridors ~0.5 m wide.
+    -->
+
+    <!-- wall material -->
+    <material>
+      <script>
+        <uri>file://media/materials/scripts/gazebo.material</uri>
+        <name>Gazebo/Wood</name>
+      </script>
+    </material>
+
+    <!-- helper macro to place box walls -->
+    <!-- We'll explicitly list box walls: each wall is a long thin box (static) -->
+
+    <!-- ROW 1 horizontal walls -->
+    <model name="wall_h_1">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>3.0 0.05 0.5</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box><size>3.0 0.05 0.5</size></box>
+          </geometry>
+        </visual>
+        <pose>0 1.2 0.25 0 0 0</pose>
+      </link>
+    </model>
+
+    <!-- vertical walls, columns -->
+    <model name="wall_v_1">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.05 2.5 0.5</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box><size>0.05 2.5 0.5</size></box>
+          </geometry>
+        </visual>
+        <pose>-1.0 0 0.25 0 0 0</pose>
+      </link>
+    </model>
+
+    <!-- more walls to form a maze; the following set creates corridors with ~0.5m spacing -->
+    <!-- Horizontal top -->
+    <model name="wall_h_top">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>4.2 0.05 0.5</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>4.2 0.05 0.5</size></box></geometry>
+        </visual>
+        <pose>0 2.4 0.25 0 0 0</pose>
+      </link>
+    </model>
+
+    <!-- Horizontal middle -->
+    <model name="wall_h_mid">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>4.2 0.05 0.5</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>4.2 0.05 0.5</size></box></geometry>
+        </visual>
+        <pose>0 0.8 0.25 0 0 0</pose>
+      </link>
+    </model>
+
+    <!-- Horizontal lower -->
+    <model name="wall_h_low">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>4.2 0.05 0.5</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>4.2 0.05 0.5</size></box></geometry>
+        </visual>
+        <pose>0 -0.8 0.25 0 0 0</pose>
+      </link>
+    </model>
+
+    <!-- Internal short walls to create passages (each approx spaced so corridors ~0.5m) -->
+    <model name="wall_block_1">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.05 0.9 0.5</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.05 0.9 0.5</size></box></geometry>
+        </visual>
+        <pose>1.0 1.6 0.25 0 0 0</pose>
+      </link>
+    </model>
+
+    <model name="wall_block_2">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.05 0.9 0.5</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.05 0.9 0.5</size></box></geometry>
+        </visual>
+        <pose>-1.0 0.0 0.25 0 0 0</pose>
+      </link>
+    </model>
+
+    <model name="wall_block_3">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.05 0.9 0.5</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.05 0.9 0.5</size></box></geometry>
+        </visual>
+        <pose>1.05 -1.6 0.25 0 0 0</pose>
+      </link>
+    </model>
+
+    <!-- Left boundary -->
+    <model name="wall_left">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.05 5.0 0.5</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.05 5.0 0.5</size></box></geometry>
+        </visual>
+        <pose>-2.1 0 0.25 0 0 0</pose>
+      </link>
+    </model>
+
+    <!-- Right boundary -->
+    <model name="wall_right">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.05 5.0 0.5</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.05 5.0 0.5</size></box></geometry>
+        </visual>
+        <pose>2.1 0 0.25 0 0 0</pose>
+      </link>
+    </model>
+
+    <!-- Front / back boundary -->
+    <model name="wall_front">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>4.5 0.05 0.5</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>4.5 0.05 0.5</size></box></geometry>
+        </visual>
+        <pose>0 -2.45 0.25 0 0 0</pose>
+      </link>
+    </model>
+
+    <model name="wall_back">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>4.5 0.05 0.5</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>4.5 0.05 0.5</size></box></geometry>
+        </visual>
+        <pose>0 2.45 0.25 0 0 0</pose>
+      </link>
+    </model>
+
+    <!-- Spawn point marker (not necessary) -->
+  </world>
+</sdf>
